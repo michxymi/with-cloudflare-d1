@@ -17,9 +17,10 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const realpath = (value: string) =>
   fs.existsSync(value) ? fs.realpathSync(value) : undefined;
+const payloadCLIPath = path.join("payload", "bin.js");
 
-const isCLI = process.argv.some((value) =>
-  realpath(value).endsWith(path.join("payload", "bin.js"))
+const isCLI = process.argv.some(
+  (value) => realpath(value)?.endsWith(payloadCLIPath) ?? false
 );
 const isProduction = process.env.NODE_ENV === "production";
 
